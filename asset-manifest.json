@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/dental-center/static/css/main.10d0131d.css",
+    "main.js": "/dental-center/static/js/main.ca3f70d1.js",
+    "static/js/453.74ccd7d7.chunk.js": "/dental-center/static/js/453.74ccd7d7.chunk.js",
+    "static/media/dentist-428646_640.jpg": "/dental-center/static/media/dentist-428646_640.af26cb4cd9318872b486.jpg",
+    "index.html": "/dental-center/index.html",
+    "static/media/en-US.cjs": "/dental-center/static/media/en-US.c3a6319ea4f219498e6f.cjs",
+    "main.10d0131d.css.map": "/dental-center/static/css/main.10d0131d.css.map",
+    "main.ca3f70d1.js.map": "/dental-center/static/js/main.ca3f70d1.js.map",
+    "453.74ccd7d7.chunk.js.map": "/dental-center/static/js/453.74ccd7d7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.10d0131d.css",
+    "static/js/main.ca3f70d1.js"
+  ]
+}
