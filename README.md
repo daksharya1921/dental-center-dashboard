@@ -4,7 +4,8 @@ A comprehensive React-based dental center management system for ENTNT Technical 
 
 ## 🚀 Live Demo
 
-- **Deployed App**: [Your Deployed Link Here]
+- **Deployed App**: https://dental-center-dashboard-six.vercel.app
+                   or : https://dental-center-dashboard-daksh-aryas-projects-82c2811c.vercel.app/ 
 - **GitHub Repository**: https://github.com/daksharya1921/dental-center-dashboard
 
 ## 📋 Project Overview
