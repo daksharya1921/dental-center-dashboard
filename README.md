@@ -1,70 +1,291 @@
-# Getting Started with Create React App
+# Dental Center Management Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive React-based dental center management system for ENTNT Technical Assignment. This application provides role-based access for dental center administration and patient management.
 
-## Available Scripts
+## 🚀 Live Demo
 
-In the project directory, you can run:
+- **Deployed App**: [Your Deployed Link Here]
+- **GitHub Repository**: https://github.com/daksharya1921/dental-center-dashboard
 
-### `npm start`
+## 📋 Project Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The Dental Center Management Dashboard is a frontend-only application that simulates a complete dental center management system. It features role-based access control, patient management, appointment scheduling, and file management capabilities.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### User Roles
 
-### `npm test`
+- **Admin (Dentist)**: Full access to all features including patient management, appointment scheduling, and dashboard analytics
+- **Patient**: Limited access to view personal appointments, treatment history, and uploaded files
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Demo Credentials
 
-### `npm run build`
+```
+Admin Login:
+Email: admin@entnt.in
+Password: admin123
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Patient Login:
+Email: john@entnt.in
+Password: patient123
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ✨ Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Core Features
 
-### `npm run eject`
+- **🔐 User Authentication**
+  - Simulated login system with role-based access
+  - Session persistence using localStorage
+  - Protected routes based on user roles
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **👥 Patient Management** (Admin Only)
+  - Add, edit, view, and delete patients
+  - Comprehensive patient profiles with health information
+  - Search and filter functionality
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **📅 Appointment Management** (Admin Only)
+  - Create and manage dental appointments (incidents)
+  - Track appointment status and treatment progress
+  - Add costs, treatments, and follow-up dates
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **📊 Dashboard Analytics**
+  - KPI overview with key metrics
+  - Next 10 upcoming appointments
+  - Top patients and revenue tracking
+  - Treatment completion statistics
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **🗓️ Calendar View** (Admin Only)
+  - Monthly and weekly appointment views
+  - Interactive calendar with appointment details
+  - Quick appointment scheduling
 
-## Learn More
+- **📋 Patient Portal**
+  - Personal appointment history
+  - Treatment records and costs
+  - File attachments and documents
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **📁 File Management**
+  - Upload treatment files (invoices, X-rays, images)
+  - File preview and download capabilities
+  - Base64 storage for file persistence
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🛠️ Tech Stack
 
-### Code Splitting
+- **Frontend Framework**: React 18 (Functional Components)
+- **Routing**: React Router DOM
+- **State Management**: React Context API
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **File Handling**: Base64 encoding for localStorage
+- **Date Handling**: Native JavaScript Date API
+- **Build Tool**: Vite
+- **Deployment**: Vercel/Netlify/GitHub Pages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🏗️ Architecture
 
-### Analyzing the Bundle Size
+```
+src/
+├── assets/
+├── components/           
+│   ├── appointments/  
+|   ├── shared/        
+│   └── patients/                            
+├── contexts/            
+├── hooks/               
+├── pages/               
+├── services/            
+├── utils/               
+├── constants/           
+└── types/               
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🚀 Getting Started
 
-### Making a Progressive Web App
+### Prerequisites
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Node.js (v16 or higher)
+- npm or yarn package manager
 
-### Advanced Configuration
+### Installation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. **Clone the repository**
+   ```bash
+   git clone dental-center-dashboard
+   cd dental-center-dashboard
+   ```
 
-### Deployment
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+3. **Start the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-### `npm run build` fails to minify
+4. **Open your browser**
+   Navigate to `http://localhost:3000` to view the application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Building for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+# or
+yarn preview
+```
+
+## 📊 Data Structure
+
+The application uses localStorage to persist data with the following structure:
+
+```javascript
+{
+  "users": [
+    {
+      "id": "1",
+      "role": "Admin",
+      "email": "admin@entnt.in",
+      "password": "admin123"
+    },
+    {
+      "id": "2",
+      "role": "Patient",
+      "email": "john@entnt.in",
+      "password": "patient123",
+      "patientId": "p1"
+    }
+  ],
+  "patients": [
+    {
+      "id": "p1",
+      "name": "John Doe",
+      "dob": "1990-05-10",
+      "contact": "1234567890",
+      "healthInfo": "No allergies"
+    }
+  ],
+  "incidents": [
+    {
+      "id": "i1",
+      "patientId": "p1",
+      "title": "Toothache",
+      "description": "Upper molar pain",
+      "comments": "Sensitive to cold",
+      "appointmentDate": "2025-07-01T10:00:00",
+      "cost": 80,
+      "status": "Completed",
+      "files": [
+        {
+          "name": "invoice.pdf",
+          "url": "base64string-or-blob-url"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## 🔧 Technical Decisions
+
+### State Management
+- **React Context API**: Chosen for its simplicity and built-in React integration
+- **localStorage**: Used for data persistence without backend dependency
+- **Custom hooks**: Implemented for reusable state logic
+
+### Styling Approach
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development
+- **Component-based styling**: Consistent design system with reusable components
+- **Responsive design**: Mobile-first approach with breakpoint utilities
+
+### File Handling
+- **Base64 encoding**: Files converted to base64 strings for localStorage storage
+- **Blob URLs**: Used for file preview functionality
+- **File type validation**: Implemented to ensure proper file formats
+
+### Form Management
+- **Controlled components**: All forms use React controlled components
+- **Custom validation**: Client-side validation for better UX
+- **Reusable form components**: Consistent form patterns across the app
+
+## 📱 Responsive Design
+
+The application is fully responsive and optimized for:
+- **Desktop**: Full-featured dashboard experience
+- **Tablet**: Adapted layout with touch-friendly interactions
+- **Mobile**: Simplified navigation with drawer menu
+
+## 🔐 Security Considerations
+
+- **Frontend-only security**: Authentication is simulated for demo purposes
+- **Role-based access**: Routes and components are protected based on user roles
+- **Data validation**: Input validation on all forms
+- **XSS prevention**: Proper data sanitization for user inputs
+
+## 🧪 Testing
+
+The application includes comprehensive testing setup:
+- **Unit tests**: Component testing with Jest and React Testing Library
+- **Integration tests**: User flow testing
+- **E2E tests**: End-to-end testing with Cypress (optional)
+
+## 🚀 Deployment
+
+The application is deployed on [Platform Name] with the following configuration:
+- **Build command**: `npm run build`
+- **Output directory**: `dist`
+- **Environment**: Production optimized build
+
+## 📝 Known Issues & Limitations
+
+1. **localStorage limitations**: Data is lost when browser storage is cleared
+2. **File size constraints**: Large files may impact performance due to base64 encoding
+3. **No real-time updates**: Changes require page refresh in multi-tab scenarios
+4. **Browser compatibility**: Requires modern browsers with localStorage support
+
+## 🔄 Future Enhancements
+
+- **Real-time notifications**: Push notifications for appointments
+- **Advanced reporting**: Detailed analytics and reporting features
+- **Mobile app**: React Native mobile application
+- **Offline support**: PWA capabilities for offline access
+- **Data export**: Export functionality for reports and patient data
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+## 👨‍💻 Author
+
+**[Your Name]**
+- Email: arya.daksh.official@gmail.com
+- GitHub: @daksharya1921(https://github.com/daksharya1921)
+
+
+## 🙏 Acknowledgments
+
+- ENTNT for the technical assignment opportunity
+- React community for excellent documentation
+- Tailwind CSS for the utility-first approach
+- All open-source contributors who made this project possible
+
+---
+
+**Note**: This is a technical assignment project created for ENTNT. The application simulates a dental center management system for demonstration purposes.
