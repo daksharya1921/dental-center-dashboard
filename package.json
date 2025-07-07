@@ -2,8 +2,7 @@
   "name": "dental-center-dashboard",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://localhost:3000/dental-center",
-  "homepage": "https://daksharya1921.github.io/dental-center",
+  "homepage": ".",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
