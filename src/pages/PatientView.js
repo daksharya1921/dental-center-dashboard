@@ -62,88 +62,108 @@ function TabPanel(props) {
 
 const PatientView = () => {
   const [loading, setLoading] = useState(true);
-  const [patient, setPatient] = useState(null);
+  const [patients, setPatients] = useState([]);
   const [incidents, setIncidents] = useState([]);
+  const [currentPatient, setCurrentPatient] = useState(null);
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
 
-  // Mock data for demonstration
+  // Mock data matching the new structure
   useEffect(() => {
     setTimeout(() => {
-      setPatient({
-        id: 1,
-        name: 'John Alexander Smith',
-        dob: '1985-03-15',
-        weight: '75 kg',
-        height: '180 cm',
-        pulse: '72 bpm',
-        address: '123 Main Street, Downtown, City 12345',
-        mobile: '+1 (555) 123-4567',
-        home: '+1 (555) 987-6543',
-        work: '+1 (555) 456-7890',
-        email: 'john.smith@email.com',
-        allergies: ['Penicillin', 'Latex'],
-        medications: [
-          { name: 'Lisinopril', dosage: '10mg once daily' },
-          { name: 'Metformin', dosage: '500mg twice daily' },
-          { name: 'Vitamin D3', dosage: '1000 IU daily' }
-        ],
-        bloodType: 'A+',
-        emergencyContact: 'Jane Smith - +1 (555) 111-2222',
-        insuranceProvider: 'HealthCare Plus',
-        patientId: 'PT-2024-001'
-      });
-      
-      setIncidents([
+      const mockPatients = [
         {
-          id: 1,
-          title: 'Routine Dental Cleaning',
-          status: 'Completed',
-          appointmentDate: '2024-06-01T10:00:00',
-          treatment: 'Prophylaxis',
-          cost: 150,
-          description: 'Regular cleaning and oral health assessment. No cavities found. Recommended fluoride treatment.',
-          files: [
-            { name: 'X-Ray Results.pdf', url: '#', type: 'pdf' },
-            { name: 'Treatment Photos.jpg', url: '#', type: 'image' }
-          ],
-          dentist: 'Dr. Sarah Johnson',
-          duration: '45 minutes'
-        },
-        {
-          id: 2,
-          title: 'Cavity Filling - Tooth #14',
-          status: 'Scheduled',
-          appointmentDate: '2024-07-15T14:30:00',
-          treatment: 'Composite Filling',
-          cost: 275,
-          description: 'Composite resin filling for small cavity on upper left molar.',
-          files: [],
-          dentist: 'Dr. Michael Chen',
-          duration: '60 minutes'
-        },
-        {
-          id: 3,
-          title: 'Oral Surgery Consultation',
-          status: 'Pending',
-          appointmentDate: '2024-08-01T09:00:00',
-          treatment: 'Wisdom Tooth Extraction',
-          cost: 450,
-          description: 'Consultation for impacted wisdom tooth removal. Pre-surgical assessment required.',
-          files: [
-            { name: 'Panoramic X-Ray.pdf', url: '#', type: 'pdf' }
-          ],
-          dentist: 'Dr. Robert Martinez',
-          duration: '30 minutes'
+          id: "p1",
+          name: "John Doe",
+          dob: "1990-05-10",
+          contact: "1234567890",
+          healthInfo: "No allergies",
+          // Additional fields for completeness
+          email: "john.doe@email.com",
+          address: "123 Main Street, Downtown, City 12345",
+          bloodType: "A+",
+          emergencyContact: "Jane Doe - +1 (555) 111-2222",
+          insuranceProvider: "HealthCare Plus",
+          weight: "75 kg",
+          height: "180 cm",
+          pulse: "72 bpm"
         }
-      ]);
-      
+      ];
+
+      const mockIncidents = [
+        {
+          id: "i1",
+          patientId: "p1",
+          title: "Toothache",
+          description: "Upper molar pain",
+          comments: "Sensitive to cold",
+          appointmentDate: "2025-07-01T10:00:00",
+          cost: 80,
+          status: "Completed",
+          files: [
+            {
+              name: "invoice.pdf",
+              url: "base64string-or-blob-url"
+            },
+            {
+              name: "xray.png",
+              url: "base64string-or-blob-url"
+            }
+          ],
+          // Additional fields for better UI
+          dentist: "Dr. Sarah Johnson",
+          treatment: "Root Canal Consultation",
+          duration: "45 minutes"
+        },
+        {
+          id: "i2",
+          patientId: "p1",
+          title: "Routine Dental Cleaning",
+          description: "Regular cleaning and oral health assessment",
+          comments: "No cavities found. Recommended fluoride treatment",
+          appointmentDate: "2025-07-15T14:30:00",
+          cost: 150,
+          status: "Scheduled",
+          files: [],
+          dentist: "Dr. Michael Chen",
+          treatment: "Prophylaxis",
+          duration: "30 minutes"
+        },
+        {
+          id: "i3",
+          patientId: "p1",
+          title: "Cavity Filling",
+          description: "Small cavity on upper left molar",
+          comments: "Composite resin filling required",
+          appointmentDate: "2025-08-01T09:00:00",
+          cost: 275,
+          status: "Pending",
+          files: [
+            {
+              name: "treatment-plan.pdf",
+              url: "base64string-or-blob-url"
+            }
+          ],
+          dentist: "Dr. Robert Martinez",
+          treatment: "Composite Filling",
+          duration: "60 minutes"
+        }
+      ];
+
+      setPatients(mockPatients);
+      setIncidents(mockIncidents);
+      setCurrentPatient(mockPatients[0]); // Set first patient as current
       setLoading(false);
     }, 1000);
   }, []);
+
+  // Get incidents for current patient
+  const patientIncidents = incidents.filter(incident => 
+    currentPatient && incident.patientId === currentPatient.id
+  );
 
   const calculateAge = (dob) => {
     if (!dob) return 'Not specified';
@@ -189,7 +209,7 @@ const PatientView = () => {
     );
   }
 
-  if (!patient) return <Typography>No patient data available</Typography>;
+  if (!currentPatient) return <Typography>No patient data available</Typography>;
 
   return (
     <Box sx={{ 
@@ -315,32 +335,24 @@ const PatientView = () => {
                       backdropFilter: 'blur(10px)',
                       border: '2px solid rgba(255,255,255,0.3)'
                     }}>
-                      {patient.name.split(' ').map(n => n[0]).join('')}
+                      {currentPatient.name.split(' ').map(n => n[0]).join('')}
                     </Avatar>
                     <Box sx={{ flexGrow: 1 }}>
                       <Typography variant="h5" fontWeight={700} sx={{ mb: 1 }}>
-                        {patient.name}
+                        {currentPatient.name}
                       </Typography>
                       <Typography variant="body2" sx={{ opacity: 0.9, mb: 1 }}>
-                        Patient ID: {patient.patientId}
+                        Patient ID: {currentPatient.id}
                       </Typography>
-                      {patient.allergies && patient.allergies.length > 0 && (
-                        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
-                          {patient.allergies.map(allergy => (
-                            <Chip 
-                              key={allergy}
-                              label={allergy}
-                              size="small"
-                              sx={{ 
-                                backgroundColor: 'rgba(255,255,255,0.2)',
-                                color: 'white',
-                                fontWeight: 600,
-                                '& .MuiChip-deleteIcon': { color: 'white' }
-                              }}
-                            />
-                          ))}
-                        </Stack>
-                      )}
+                      <Chip 
+                        label={currentPatient.healthInfo || "No health info"}
+                        size="small"
+                        sx={{ 
+                          backgroundColor: 'rgba(255,255,255,0.2)',
+                          color: 'white',
+                          fontWeight: 600
+                        }}
+                      />
                     </Box>
                   </Box>
                   <IconButton 
@@ -366,102 +378,100 @@ const PatientView = () => {
                     <ListItem sx={{ px: 0 }}>
                       <CakeIcon sx={{ mr: 2, color: '#666' }} />
                       <ListItemText 
-                        primary={`Date of Birth: ${new Date(patient.dob).toLocaleDateString()}`}
-                        secondary={`Age: ${calculateAge(patient.dob)}`}
-                      />
-                    </ListItem>
-                    <ListItem sx={{ px: 0 }}>
-                      <BadgeIcon sx={{ mr: 2, color: '#666' }} />
-                      <ListItemText primary={`Blood Type: ${patient.bloodType}`} />
-                    </ListItem>
-                  </List>
-
-                  <Typography variant="h6" fontWeight={600} sx={{ mb: 2, color: '#1976d2' }}>
-                    Vitals
-                  </Typography>
-                  <Grid container spacing={2} sx={{ mb: 3 }}>
-                    <Grid item xs={6}>
-                      <Paper sx={{ p: 2, textAlign: 'center', backgroundColor: '#f8f9fa' }}>
-                        <WeightIcon sx={{ color: '#666', mb: 1 }} />
-                        <Typography variant="body2" color="text.secondary">Weight</Typography>
-                        <Typography variant="h6" fontWeight={600}>{patient.weight}</Typography>
-                      </Paper>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Paper sx={{ p: 2, textAlign: 'center', backgroundColor: '#f8f9fa' }}>
-                        <HeightIcon sx={{ color: '#666', mb: 1 }} />
-                        <Typography variant="body2" color="text.secondary">Height</Typography>
-                        <Typography variant="h6" fontWeight={600}>{patient.height}</Typography>
-                      </Paper>
-                    </Grid>
-                  </Grid>
-
-                  <Typography variant="h6" fontWeight={600} sx={{ mb: 2, color: '#1976d2' }}>
-                    Contact Information
-                  </Typography>
-                  <List dense>
-                    <ListItem sx={{ px: 0 }}>
-                      <LocationIcon sx={{ mr: 2, color: '#666' }} />
-                      <ListItemText 
-                        primary="Address"
-                        secondary={patient.address}
+                        primary={`Date of Birth: ${new Date(currentPatient.dob).toLocaleDateString()}`}
+                        secondary={`Age: ${calculateAge(currentPatient.dob)}`}
                       />
                     </ListItem>
                     <ListItem sx={{ px: 0 }}>
                       <PhoneIcon sx={{ mr: 2, color: '#666' }} />
                       <ListItemText 
-                        primary="Mobile"
-                        secondary={patient.mobile}
+                        primary="Contact"
+                        secondary={currentPatient.contact}
                       />
                     </ListItem>
-                    <ListItem sx={{ px: 0 }}>
-                      <EmailIcon sx={{ mr: 2, color: '#666' }} />
-                      <ListItemText 
-                        primary="Email"
-                        secondary={patient.email}
-                      />
-                    </ListItem>
+                    {currentPatient.bloodType && (
+                      <ListItem sx={{ px: 0 }}>
+                        <BadgeIcon sx={{ mr: 2, color: '#666' }} />
+                        <ListItemText primary={`Blood Type: ${currentPatient.bloodType}`} />
+                      </ListItem>
+                    )}
                   </List>
+
+                  {(currentPatient.weight || currentPatient.height) && (
+                    <>
+                      <Typography variant="h6" fontWeight={600} sx={{ mb: 2, color: '#1976d2' }}>
+                        Vitals
+                      </Typography>
+                      <Grid container spacing={2} sx={{ mb: 3 }}>
+                        {currentPatient.weight && (
+                          <Grid item xs={6}>
+                            <Paper sx={{ p: 2, textAlign: 'center', backgroundColor: '#f8f9fa' }}>
+                              <WeightIcon sx={{ color: '#666', mb: 1 }} />
+                              <Typography variant="body2" color="text.secondary">Weight</Typography>
+                              <Typography variant="h6" fontWeight={600}>{currentPatient.weight}</Typography>
+                            </Paper>
+                          </Grid>
+                        )}
+                        {currentPatient.height && (
+                          <Grid item xs={6}>
+                            <Paper sx={{ p: 2, textAlign: 'center', backgroundColor: '#f8f9fa' }}>
+                              <HeightIcon sx={{ color: '#666', mb: 1 }} />
+                              <Typography variant="body2" color="text.secondary">Height</Typography>
+                              <Typography variant="h6" fontWeight={600}>{currentPatient.height}</Typography>
+                            </Paper>
+                          </Grid>
+                        )}
+                      </Grid>
+                    </>
+                  )}
+
+                  {(currentPatient.email || currentPatient.address) && (
+                    <>
+                      <Typography variant="h6" fontWeight={600} sx={{ mb: 2, color: '#1976d2' }}>
+                        Contact Information
+                      </Typography>
+                      <List dense>
+                        {currentPatient.address && (
+                          <ListItem sx={{ px: 0 }}>
+                            <LocationIcon sx={{ mr: 2, color: '#666' }} />
+                            <ListItemText 
+                              primary="Address"
+                              secondary={currentPatient.address}
+                            />
+                          </ListItem>
+                        )}
+                        {currentPatient.email && (
+                          <ListItem sx={{ px: 0 }}>
+                            <EmailIcon sx={{ mr: 2, color: '#666' }} />
+                            <ListItemText 
+                              primary="Email"
+                              secondary={currentPatient.email}
+                            />
+                          </ListItem>
+                        )}
+                      </List>
+                    </>
+                  )}
                 </Box>
               </Paper>
 
-              {/* Medications Card */}
-              {patient.medications && patient.medications.length > 0 && (
-                <Paper elevation={0} sx={{ 
-                  borderRadius: 3,
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.08)'
-                }}>
-                  <Box sx={{ p: 3 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <MedicalIcon sx={{ mr: 2, color: '#1976d2' }} />
-                      <Typography variant="h6" fontWeight={600} color="#1976d2">
-                        Current Medications
-                      </Typography>
-                    </Box>
-                    <List dense>
-                      {patient.medications.map((med, index) => (
-                        <React.Fragment key={med.name}>
-                          <ListItem sx={{ px: 0 }}>
-                            <ListItemText
-                              primary={
-                                <Typography fontWeight={600} color="text.primary">
-                                  {med.name}
-                                </Typography>
-                              }
-                              secondary={
-                                <Typography variant="body2" color="text.secondary">
-                                  {med.dosage}
-                                </Typography>
-                              }
-                            />
-                          </ListItem>
-                          {index < patient.medications.length - 1 && <Divider />}
-                        </React.Fragment>
-                      ))}
-                    </List>
+              {/* Health Information Card */}
+              <Paper elevation={0} sx={{ 
+                borderRadius: 3,
+                boxShadow: '0 8px 32px rgba(0,0,0,0.08)'
+              }}>
+                <Box sx={{ p: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <MedicalIcon sx={{ mr: 2, color: '#1976d2' }} />
+                    <Typography variant="h6" fontWeight={600} color="#1976d2">
+                      Health Information
+                    </Typography>
                   </Box>
-                </Paper>
-              )}
+                  <Typography variant="body2" color="text.secondary">
+                    {currentPatient.healthInfo}
+                  </Typography>
+                </Box>
+              </Paper>
             </Stack>
           </Fade>
         </Grid>
@@ -498,9 +508,9 @@ const PatientView = () => {
               </Tabs>
 
               <TabPanel value={tabValue} index={0}>
-                {incidents.length > 0 ? (
+                {patientIncidents.length > 0 ? (
                   <Stack spacing={3}>
-                    {incidents.map((incident, index) => (
+                    {patientIncidents.map((incident, index) => (
                       <Card key={incident.id} sx={{ 
                         borderRadius: 2,
                         boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
@@ -522,7 +532,7 @@ const PatientView = () => {
                                 {incident.title}
                               </Typography>
                               <Typography variant="body2" color="text.secondary">
-                                with {incident.dentist}
+                                {incident.dentist ? `with ${incident.dentist}` : 'Dental appointment'}
                               </Typography>
                             </Box>
                             <Chip 
@@ -548,7 +558,7 @@ const PatientView = () => {
                                   {new Date(incident.appointmentDate).toLocaleTimeString([], {
                                     hour: '2-digit',
                                     minute: '2-digit'
-                                  })} ({incident.duration})
+                                  })} {incident.duration && `(${incident.duration})`}
                                 </Typography>
                               </Box>
                             </Grid>
@@ -564,16 +574,20 @@ const PatientView = () => {
                             mb: 2
                           }}>
                             <Typography variant="body2" color="text.secondary">
-                              Treatment: <strong>{incident.treatment}</strong>
+                              Treatment: <strong>{incident.treatment || 'General consultation'}</strong>
                             </Typography>
                             <Typography variant="h6" fontWeight={600} color="primary">
                               ${incident.cost}
                             </Typography>
                           </Box>
                           
-                          {incident.description && (
+                          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                            <strong>Description:</strong> {incident.description}
+                          </Typography>
+                          
+                          {incident.comments && (
                             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                              {incident.description}
+                              <strong>Comments:</strong> {incident.comments}
                             </Typography>
                           )}
                           
